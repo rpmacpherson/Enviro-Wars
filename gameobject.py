@@ -2,6 +2,13 @@ import pygame
 from pygame.locals import *
 from pygame.sprite import *
 
+class AnimalGroup(Group):
+    def __init__(self,animal):
+        Group.__init__(self,animal)
+class PlantGroup(Group):
+    def __init__(self,plant):
+        Group.__init__(self,plant)
+
 class GameObject(Sprite):
     def __init__(self,screen,image_file):
         Sprite.__init__(self) 
