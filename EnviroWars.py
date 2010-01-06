@@ -7,8 +7,8 @@ SCREEN_WIDTH=640
 SCREEN_HEIGHT=640
 screen=pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT),0,32)
 
-creature = GameObject(screen,"/Users/clayallsopp/Desktop/Projects/Python/Pygame/Enviro-Wars/images/bunny.jpg")
-grass = Food(screen,"/Users/clayallsopp/Desktop/Projects/Python/Pygame/Enviro-Wars/images/grass.jpg")
+creature = GameObject(screen,"/Users/clayallsopp/Desktop/Projects/Python/Pygame/Enviro-Wars/images/Rabbit.jpg")
+grass = Food(screen,"/Users/clayallsopp/Desktop/Projects/Python/Pygame/Enviro-Wars/images/Grass.jpg")
 grass.x = 5
 grass.y = 5
 
