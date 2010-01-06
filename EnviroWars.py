@@ -1,16 +1,17 @@
 import pygame
 from pygame.locals import *
-from gameobject import GameObject, Food
+from gameobject import GameObject, Food,AnimalGroup,PlantGroup
 from sys import exit
 #Initialization#################################################################
 SCREEN_WIDTH=640
 SCREEN_HEIGHT=640
 screen=pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT),0,32)
-
 creature = GameObject(screen,"/Users/clayallsopp/Desktop/Projects/Python/Pygame/Enviro-Wars/images/Rabbit.jpg")
 grass = Food(screen,"/Users/clayallsopp/Desktop/Projects/Python/Pygame/Enviro-Wars/images/Grass.jpg")
 grass.x = 5
 grass.y = 5
+animals=AnimalGroup(creature)
+plants=PlantGroup(grass)
 
 pygame.init()
 linex=40
@@ -51,8 +52,12 @@ while True:
         pygame.draw.line(screen,(0,0,0),(0,liney),(SCREEN_WIDTH,liney))
         liney+=40
     liney=40
-    grass.blitObject()
-    creature.blitObject()
+    for plant in plants:
+        plant.logic()
+        plant.blitObject()
+    for animal in animals:
+        creature.logic()
+        creature.blitObject()
     pygame.display.update()
                          
         
