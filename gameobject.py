@@ -33,6 +33,8 @@ class GameObject(Sprite):
         self.x=x
         self.y=y
         self.rect=pygame.Rect(self.x*40,self.y*40,self.image_w,self.image_h)
+    def logic(self):
+        pass
     
 class Food(GameObject):
     def __init__(self, screen, image_file):
@@ -46,6 +48,8 @@ class Food(GameObject):
     def moveLeft(self):
         pass
     def moveRight(self):
+        pass
+    def logic(self):
         pass
 
 class Creature(GameObject):
