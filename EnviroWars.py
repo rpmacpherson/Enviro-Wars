@@ -8,10 +8,12 @@ SCREEN_HEIGHT=640
 screen=pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT),0,32)
 creature = GameObject(screen,"/Users/clayallsopp/Desktop/Projects/Python/Pygame/Enviro-Wars/images/Rabbit.jpg")
 grass = Food(screen,"/Users/clayallsopp/Desktop/Projects/Python/Pygame/Enviro-Wars/images/Grass.jpg")
+button=Button(screen,pygame.image.load("E:\Python\Graphics\FighterFly.png").convert_alpha())
 grass.x = 5
 grass.y = 5
 animals=AnimalGroup(creature)
 plants=PlantGroup(grass)
+buttons=ButtonGroup(button)
 
 pygame.init()
 linex=40
@@ -37,7 +39,9 @@ while True:
                     creature.moveDown()
         elif event.type==MOUSEBUTTONDOWN: 
             if event.button==1:
-                if event.pos[1]<=480:
+                if button.rect.collidepoint(event.pos):
+                    button.logic()
+                elif event.pos[1]<=480:
                     print event.pos
                     creature.x=event.pos[0]/40
                     print creature.x
@@ -58,6 +62,8 @@ while True:
     for animal in animals:
         creature.logic()
         creature.blitObject()
+    for button in buttons:
+        button.blitObject()
     pygame.display.update()
                          
         

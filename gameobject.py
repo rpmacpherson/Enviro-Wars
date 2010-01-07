@@ -1,14 +1,17 @@
 import pygame
 from pygame.locals import *
 from pygame.sprite import *
-
-class AnimalGroup(Group):
-    def __init__(self,animal):
+ 
+class AnimalGroup(Group):   #Initializes each group.  Declaring a new class for each group isn't necessary, except to
+    def __init__(self,animal): #have varying numbers of elements initialized in the constructor, which will be useful.
         Group.__init__(self,animal)
 class PlantGroup(Group):
     def __init__(self,plant):
         Group.__init__(self,plant)
-
+class ButtonGroup(Group):
+    def __init__(self,button):
+        Group.__init__(self,button)
+ 
 class GameObject(Sprite):
     def __init__(self,screen,image_file):
         Sprite.__init__(self) 
@@ -33,8 +36,6 @@ class GameObject(Sprite):
         self.x=x
         self.y=y
         self.rect=pygame.Rect(self.x*40,self.y*40,self.image_w,self.image_h)
-    def logic(self):
-        pass
     
 class Food(GameObject):
     def __init__(self, screen, image_file):
@@ -49,9 +50,7 @@ class Food(GameObject):
         pass
     def moveRight(self):
         pass
-    def logic(self):
-        pass
-
+ 
 class Creature(GameObject):
     def __init__(self, screen, image_file):
         GameObject.__init__(self,screen,image_file)
@@ -81,3 +80,12 @@ class Creature(GameObject):
     # Defines how it should eat. Maybe we need to implement a can_eat or something for when it checks to move?
     def eat(self, other_creature):
         pass
+ 
+class Button(gameObject):
+    def __init__(self,screen,image_file):
+        self.x=310
+        self.y=540
+        gameObject.__init__(self,screen,image_file)
+        self.rect=pygame.Rect(self.x,self.y,40,40)
+    def logic(self):
+        print "Clicked!"
