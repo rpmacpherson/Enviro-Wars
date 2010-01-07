@@ -77,3 +77,10 @@ class Creature(GameObject):
     # Defines how it should eat. Maybe we need to implement a can_eat or something for when it checks to move?
     def eat(self, other_creature):
         pass
+
+class Button(gameObject):
+    def __init__(self,screen,image_file):
+        gameObject.__init__(self,screen,image_file)
+        self.rect=pygame.Rect(self.x,self.y,40,40)
+    def logic(self):
+        print "Clicked!"
