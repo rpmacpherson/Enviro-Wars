@@ -2,12 +2,15 @@ import pygame
 from pygame.locals import *
 from pygame.sprite import *
 
-class AnimalGroup(Group):
-    def __init__(self,animal):
+class AnimalGroup(Group):   #Initializes each group.  Declaring a new class for each group isn't necessary, except to
+    def __init__(self,animal): #have varying numbers of elements initialized in the constructor, which will be useful.
         Group.__init__(self,animal)
 class PlantGroup(Group):
     def __init__(self,plant):
         Group.__init__(self,plant)
+class ButtonGroup(Group):
+    def __init__(self,button):
+        Group.__init__(self,button)
 
 class GameObject(Sprite):
     def __init__(self,screen,image_file):
