@@ -83,6 +83,8 @@ class Creature(GameObject):
 
 class Button(gameObject):
     def __init__(self,screen,image_file):
+        self.x=310
+        self.y=540
         gameObject.__init__(self,screen,image_file)
         self.rect=pygame.Rect(self.x,self.y,40,40)
     def logic(self):
