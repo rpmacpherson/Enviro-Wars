@@ -1,6 +1,6 @@
 import pygame
 from pygame.locals import *
-from gameobject import GameObject, Food,AnimalGroup,PlantGroup
+from gameobject import *
 from sys import exit
 #Initialization#################################################################
 SCREEN_WIDTH=640
@@ -8,7 +8,7 @@ SCREEN_HEIGHT=640
 screen=pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT),0,32)
 creature = GameObject(screen,"/Users/clayallsopp/Desktop/Projects/Python/Pygame/Enviro-Wars/images/Rabbit.jpg")
 grass = Food(screen,"/Users/clayallsopp/Desktop/Projects/Python/Pygame/Enviro-Wars/images/Grass.jpg")
-button=Button(screen,pygame.image.load("E:\Python\Graphics\FighterFly.png").convert_alpha())
+button=Button(screen,"/Users/clayallsopp/Desktop/Projects/Python/Pygame/Enviro-Wars/images/Grass.jpg")
 grass.x = 5
 grass.y = 5
 animals=AnimalGroup(creature)

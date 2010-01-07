@@ -36,6 +36,8 @@ class GameObject(Sprite):
         self.x=x
         self.y=y
         self.rect=pygame.Rect(self.x*40,self.y*40,self.image_w,self.image_h)
+    def logic(self):
+        pass
     
 class Food(GameObject):
     def __init__(self, screen, image_file):
@@ -49,6 +51,8 @@ class Food(GameObject):
     def moveLeft(self):
         pass
     def moveRight(self):
+        pass
+    def logic(self):
         pass
  
 class Creature(GameObject):
@@ -81,11 +85,11 @@ class Creature(GameObject):
     def eat(self, other_creature):
         pass
  
-class Button(gameObject):
+class Button(GameObject):
     def __init__(self,screen,image_file):
         self.x=310
         self.y=540
-        gameObject.__init__(self,screen,image_file)
+        GameObject.__init__(self,screen,image_file)
         self.rect=pygame.Rect(self.x,self.y,40,40)
     def logic(self):
         print "Clicked!"
