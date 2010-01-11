@@ -15,7 +15,7 @@ grass.y = 5
 animals=AnimalGroup(creature)
 plants=PlantGroup(grass)
 buttons=ButtonGroup(button)
-info=[]
+selected=None
 
 pygame.init()
 font=pygame.font.SysFont("Courier New",16)
@@ -28,12 +28,12 @@ def Search(searchx,searchy):
     for animal in animals:
         if animal.x==searchx and animal.y==searchy:
             print "found it!"
-            return(animal.info())
+            return(animal)
     for plant in plants:
         if plant.x==searchx and plant.y==searchy:
             print "found it!"
-            return(plant.info())
-    return (['Nothing Here.'])
+            return(plant)
+    return ("Nothing")
 #Main Loop######################################################################
 while True:
     for event in pygame.event.get():
@@ -57,7 +57,7 @@ while True:
                 if button.rect.collidepoint(event.pos):
                     button.logic()
                 elif event.pos[1]<=480:
-                   info=Search(event.pos[0]/40,event.pos[1]/40)
+                   selected=Search(event.pos[0]/40,event.pos[1]/40)
     screen.fill((255,255,255))
     for x in xrange(16):
         pygame.draw.line(screen,(0,0,0),(linex,0),(linex,480))
@@ -68,7 +68,7 @@ while True:
         liney+=40
     liney=40
     for plant in plants:
-        plant.logic()
+        plant.logic(animals,plants)
         plant.blitObject()
     for animal in animals:
         creature.logic()
@@ -76,9 +76,13 @@ while True:
     for button in buttons:
         button.blitObject()
     linenum=50
-    for line in info:
-        screen.blit(font.render(line,True,(0,0,0)),(0,SCREEN_HEIGHT-linenum))
-        linenum-=18
+    if selected!=None and selected!="Nothing":
+        info=selected.info()
+        for line in info:
+            screen.blit(font.render(line,True,(0,0,0)),(0,SCREEN_HEIGHT-linenum))
+            linenum-=18
+    elif selected=="Nothing":
+        screen.blit(font.render("Nothing Here",True,(0,0,0)),(0,SCREEN_HEIGHT-linenum))
     pygame.display.update()                        
         
             

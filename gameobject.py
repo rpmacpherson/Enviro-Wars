@@ -30,6 +30,9 @@ class GameObject(Sprite):
         self.x -= 1
     def moveRight(self):
         self.x += 1
+    def moveTo(self,coords):
+        self.x = coords[1]
+        self.y = coords[0]
     # Not sure if this function is necessary so I'll leave it here
     def changePos(self,x,y):
         self.x=x
@@ -37,12 +40,58 @@ class GameObject(Sprite):
         self.rect=pygame.Rect(self.x*40,self.y*40,self.image_w,self.image_h)
     def logic(self):
         pass
-    
+    def get_adjacent_spots(self):
+        spots = []
+        print "current x:",self.x
+        if self.x - 1 >= 0:
+            mov_tuple = (self.y,self.x-1)
+            #print mov_tuple
+            appendage = (self.grid[mov_tuple[0]][mov_tuple[1]],mov_tuple)
+            spots.append(appendage)
+            if self.y - 1 >= 0:
+                mov_tuple = (self.y-1,self.x-1)
+                #print mov_tuple
+                appendage = (self.grid[mov_tuple[0]][mov_tuple[1]],mov_tuple)
+                spots.append(appendage)
+            if self.y + 1 <= 11:
+                mov_tuple = (self.y+1,self.x-1)
+                #print mov_tuple
+                appendage = (self.grid[mov_tuple[0]][mov_tuple[1]],mov_tuple)
+                spots.append(appendage)
+        if self.x + 1 <= 15:
+            mov_tuple = (self.y,self.x+1)
+            #print mov_tuple
+            appendage = (self.grid[mov_tuple[0]][mov_tuple[1]],mov_tuple)
+            spots.append(appendage)
+            if self.y - 1 >= 0:
+                mov_tuple = (self.y-1,self.x+1)
+                #print mov_tuple
+                appendage = (self.grid[mov_tuple[0]][mov_tuple[1]],mov_tuple)
+                spots.append(appendage)
+            if self.y + 1 <= 11:
+                mov_tuple = (self.y+1,self.x+1)
+                #print mov_tuple
+                appendage = (self.grid[mov_tuple[0]][mov_tuple[1]],mov_tuple)
+                spots.append(appendage)
+        if self.y - 1 >= 0:
+            mov_tuple = (self.y-1,self.x)
+            #print mov_tuple
+            appendage = (self.grid[mov_tuple[0]][mov_tuple[1]],mov_tuple)
+            spots.append(appendage)
+        if self.y + 1 <= 11:
+            mov_tuple = (self.y+1,self.x)
+            #print mov_tuple
+            appendage = (self.grid[mov_tuple[0]][mov_tuple[1]],mov_tuple)
+            spots.append(appendage)
+        #print spots
+        return spots
+ 
 class Food(GameObject):
     def __init__(self, screen, image_file):
         GameObject.__init__(self,screen,image_file)
-        self.growth_rate = 0 # Arbitrary constant
-        self.health = 0 # Arbitrary constant
+        self.growth_rate = 2000 # Arbitrary constant
+        self.growth_time=0
+        self.health =100 # Arbitrary constant
     def info(self):
         rep=[]
         rep.append("Plant")
@@ -56,8 +105,22 @@ class Food(GameObject):
         pass
     def moveRight(self):
         pass
-    def logic(self):
-        pass
+    
+    def logic(self,rabbits,plants):
+        self.growth_time+=1
+        if self.growth_time==self.growth_rate:
+            self.growth_time=0
+            print "Grow Time!"
+            adjacent_spots = self.get_adjacent_spots()
+            random_spot = random.choice(adjacent_spots)
+            temp=Food(screen,"Grass.jpg")
+            temp.moveTo(random_spot)
+            plants.add(temp)
+        for rabbit in rabbits:
+            if rabbit.x==self.x and rabbit.y==self.y:
+                self.health-=1
+        if self.health==0:
+            self.kill()
  
 class Creature(GameObject):
     def __init__(self, screen, image_file):
