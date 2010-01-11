@@ -10,8 +10,7 @@ class PlantGroup(Group):
         Group.__init__(self,plant)
 class ButtonGroup(Group):
     def __init__(self,button):
-        Group.__init__(self,button)
- 
+        Group.__init__(self,button) 
 class GameObject(Sprite):
     def __init__(self,screen,image_file):
         Sprite.__init__(self) 
@@ -44,6 +43,11 @@ class Food(GameObject):
         GameObject.__init__(self,screen,image_file)
         self.growth_rate = 0 # Arbitrary constant
         self.health = 0 # Arbitrary constant
+    def info(self):
+        rep=[]
+        rep.append("Plant")
+        rep.append("Health:"+str(self.health))
+        return(rep)
     def moveUp(self):
         pass
     def moveDown(self):
@@ -61,9 +65,14 @@ class Creature(GameObject):
         # All of the creature-specific stuff goes here
         self.hunger = 0 # Arbitrary constant for right now
         self.speed = 0 # Arbirtary constant
-        self.num_offpsring # Arbitrary constant
-        self.reproduction_rate # Arbitrary constant
-    
+        self.num_offpsring=0 # Arbitrary constant
+        self.reproduction_rate=0 # Arbitrary constant
+    def info(self):
+        rep=[]
+        rep.append("Animal")
+        rep.append("Hunger:"+str(self.hunger))
+        rep.append("Speed:"+str(self.speed))
+        return rep
     # Every creature changes its position using a logic function? 
     # By default it should either do nothing or choose a random direction to move in (as to not repeat code in subclasses)    
     def logic(self):

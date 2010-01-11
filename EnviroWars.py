@@ -6,19 +6,34 @@ from sys import exit
 SCREEN_WIDTH=640
 SCREEN_HEIGHT=640
 screen=pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT),0,32)
-creature = GameObject(screen,"/Users/clayallsopp/Desktop/Projects/Python/Pygame/Enviro-Wars/images/Rabbit.jpg")
-grass = Food(screen,"/Users/clayallsopp/Desktop/Projects/Python/Pygame/Enviro-Wars/images/Grass.jpg")
-button=Button(screen,"/Users/clayallsopp/Desktop/Projects/Python/Pygame/Enviro-Wars/images/Grass.jpg")
+creature = Creature(screen,"Rabbit.jpg")
+grass = Food(screen,"Grass.jpg")
+button=Button(screen,"Grass.jpg")
+creature.x=9
 grass.x = 5
 grass.y = 5
 animals=AnimalGroup(creature)
 plants=PlantGroup(grass)
 buttons=ButtonGroup(button)
+info=[]
 
 pygame.init()
+font=pygame.font.SysFont("Courier New",16)
+font_height=font.get_linesize()
 linex=40
 liney=40
 
+def Search(searchx,searchy):
+    print searchx,searchy
+    for animal in animals:
+        if animal.x==searchx and animal.y==searchy:
+            print "found it!"
+            return(animal.info())
+    for plant in plants:
+        if plant.x==searchx and plant.y==searchy:
+            print "found it!"
+            return(plant.info())
+    return (['Nothing Here.'])
 #Main Loop######################################################################
 while True:
     for event in pygame.event.get():
@@ -42,11 +57,7 @@ while True:
                 if button.rect.collidepoint(event.pos):
                     button.logic()
                 elif event.pos[1]<=480:
-                    print event.pos
-                    creature.x=event.pos[0]/40
-                    print creature.x
-                    creature.y=event.pos[1]/40
-                    print creature.y
+                   info=Search(event.pos[0]/40,event.pos[1]/40)
     screen.fill((255,255,255))
     for x in xrange(16):
         pygame.draw.line(screen,(0,0,0),(linex,0),(linex,480))
@@ -64,7 +75,10 @@ while True:
         creature.blitObject()
     for button in buttons:
         button.blitObject()
-    pygame.display.update()
-                         
+    linenum=50
+    for line in info:
+        screen.blit(font.render(line,True,(0,0,0)),(0,SCREEN_HEIGHT-linenum))
+        linenum-=18
+    pygame.display.update()                        
         
             
