@@ -165,3 +165,19 @@ class Button(GameObject):
         self.rect=pygame.Rect(self.x,self.y,40,40)
     def logic(self):
         print "Clicked!"
+class Bar():
+    def __init__(self,screen,max_val,x,y):
+        max_val=max_val
+        self.x=x
+        self.y=y
+        self.screen=screen
+    def blitObject(self,cur_val):
+        pygame.draw.line(self.screen,(0,0,0),(self.x,self.y),(self.x,self.y+11))
+        pygame.draw.line(self.screen,(0,0,0),(self.x,self.y),(self.x+51,self.y))
+        pygame.draw.line(self.screen,(0,0,0),(self.x+51,self.y),(self.x+51,self.y+11))
+        pygame.draw.line(self.screen,(0,0,0),(self.x,self.y+11),(self.x+51,self.y+11))
+        draw_times=cur_val/2
+        drawx=self.x+1
+        for line in xrange(0,draw_times):
+            pygame.draw.line(self.screen,(0,255,0),(drawx,self.y+1),(drawx,self.y+10))
+            drawx+=1

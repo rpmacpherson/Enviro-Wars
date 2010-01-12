@@ -77,10 +77,12 @@ while True:
         button.blitObject()
     linenum=50
     if selected!=None and selected!="Nothing":
-        info=selected.info()
-        for line in info:
-            screen.blit(font.render(line,True,(0,0,0)),(0,SCREEN_HEIGHT-linenum))
-            linenum-=18
+        health_bar=Bar(screen,100,20,500)
+        health_bar.blitObject(selected.health)
+        #info=selected.info()
+        #for line in info:
+            #screen.blit(font.render(line,True,(0,0,0)),(0,SCREEN_HEIGHT-linenum))
+           #linenum-=18
     elif selected=="Nothing":
         screen.blit(font.render("Nothing Here",True,(0,0,0)),(0,SCREEN_HEIGHT-linenum))
     pygame.display.update()                        
